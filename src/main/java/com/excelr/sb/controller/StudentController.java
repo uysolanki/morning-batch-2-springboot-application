@@ -1,9 +1,13 @@
 package com.excelr.sb.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,4 +78,48 @@ public class StudentController {
 	{
 		return studservice.saveStudent(s1);
 	}
+	
+	@PostMapping("/saveListStudentRequestBody")		//	localhost:8085/saveStudentPathVariable/Alice/78.5							98.5
+	public List<Student> saveListStudentRequestBody(@RequestBody List<Student> students)
+	{
+		return studservice.saveAllStudent(students);
+	}
+	
+	@GetMapping("/getStudentByRnoUsingRequestParam")
+	public Student getStudentByRnoUsingRequestParam(@RequestParam("rollno") int rno)
+	{
+		return studservice.getStudent(rno);
+	}
+	
+	@GetMapping("/getStudentByRnoUsingPathVariable/{rollno}")
+	public Student getStudentByRnoUsingPathVariable(@PathVariable("rollno") int rno)
+	{
+		return studservice.getStudent(rno);
+	}
+	
+	@GetMapping("/getStudentByNameUsingPathVariable/{sn}")
+	public List<Student> getStudentByNameUsingPathVariable(@PathVariable("sn") String studName)
+	{
+		return studservice.getStudentByName(studName);
+	}
+	
+	@GetMapping("/getScholarStudents")
+	public List<Student> getScholarStudents()
+	{
+		return studservice.getScholarStudents();
+	}
+	
+	@DeleteMapping("/deleteStudent/{rn}")
+	public String deleteStudent(@PathVariable("rn") int rno)
+	{
+		studservice.deleteStudent(rno);
+		return "Record Deleted";
+	}
+	
+	@PutMapping("/updateStudent/{rn}")
+	public Student updateStudent(@PathVariable("rn") int rno,@RequestBody Student newStudentValues)
+	{
+		return studservice.updateStudent(rno,newStudentValues);
+	}
+	
 }
