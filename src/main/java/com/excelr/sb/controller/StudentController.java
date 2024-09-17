@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,5 +67,11 @@ public class StudentController {
 		
 		return studservice.saveStudent(s1);
 		
+	}
+	
+	@PostMapping("/saveStudentRequestBody")		//	localhost:8085/saveStudentPathVariable/Alice/78.5							98.5
+	public Student saveStudentRequestBody(@RequestBody Student s1)
+	{
+		return studservice.saveStudent(s1);
 	}
 }
